@@ -11,9 +11,9 @@ from . import views
 
 '''
 urlpatterns = [
-    path(r'events', views.event_list, name='event_list'),
+    #path(r'what_ont_the_dish', views.dish, name='dish'),
     #path(r'camera', views.camera, name='camera'),
-    #path(r'', views.camera, name='camera'),
+    path(r'', views.dish, name='dish'),
     #path(r'mouseevent', views.mouse_event, name='mouse_event'),
 ]
 

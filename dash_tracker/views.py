@@ -2,13 +2,25 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.utils import timezone
-from .models import MouseEvent
+from .models import Language, ProductTypeName, ProductGroupName, Mesurement, MesurementName, \
+    Ingradient,IngradientName, Meal, MealName, OnTheDish, Profile
+
 from django.contrib.auth.decorators import login_required
 
 @login_required
-def event_list(request):
-    events = MouseEvent.objects.order_by('event_date')
-    return render(request, 'dash_tracker/event_list.html', {'events': events})
+def dish(request):
+    user = request.user
+    prof = Profile.objects.get(user = user)
+    lang = prof.lang
+    ingradient_names = IngradientName.objects.filter(lang=lang)
+
+    products = OnTheDish.objects.raw('SELECT * FROM ingradient LEFT OUTER JOIN (SELECT * FROM ingradientname WHERE ingradientname.lang = lang) AS ingradientname ON ingradientname.id = ingradient.id')
+
+    print(lang)
+
+    lname = lang.short_name
+    print(lname)
+    return render(request, 'dash_tracker/dish.html', {'products': products, 'lang' : lang})
 
 # @login_required
 # def camera(request):

@@ -137,12 +137,16 @@ class OnTheDish(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    lang = models.ForeignKey(Language, on_delete=models.CASCADE)
+    lang = models.ForeignKey(Language, on_delete=models.CASCADE, default=None)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance)
+        print('created')
+        lang =  Language.objects.filter(short_name = 'en')
+        if not lang:
+            lang = Language.objects.create(name='english', short_name = 'en')
+        Profile.objects.create(user=instance, lang = lang)
 
 
 @receiver(post_save, sender=User)

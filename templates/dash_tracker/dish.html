@@ -6,10 +6,9 @@
 {% for product in products %}
     <tr>
         <td>{{ product.date }}</td>
-        <td>{{ product.ingradient|linebreaksbr }}</td>
+        <td>{{ product.ingradient_name|linebreaksbr }}</td>
         <td>{{ product.quantity|linebreaksbr }}</td>
         <td>{{ product.mesurement|linebreaksbr }}</td>
-        <td>{{ lang.short_name|linebreaksbr }}</td>
     </tr>
 {% endfor %}
 </table>

@@ -11,16 +11,33 @@ from django.contrib.auth.decorators import login_required
 def dish(request):
     user = request.user
     prof = Profile.objects.get(user = user)
-    lang = prof.lang
+    lang = prof.lang_id
     ingradient_names = IngradientName.objects.filter(lang=lang)
 
-    products = OnTheDish.objects.raw('SELECT * FROM ingradient LEFT OUTER JOIN (SELECT * FROM ingradientname WHERE ingradientname.lang = lang) AS ingradientname ON ingradientname.id = ingradient.id')
+    products = OnTheDish.objects.raw('SELECT * FROM dash_tracker_ingradient LEFT OUTER JOIN (SELECT name AS ingradient_name, id FROM dash_tracker_ingradientname WHERE dash_tracker_ingradientname.lang_id = (SELECT lang_id FROM dash_tracker_profile WHERE user_id = %s)) AS dash_tracker_ingradientname ON dash_tracker_ingradientname.id = dash_tracker_ingradient.id', [request.user.id])
 
-    print(lang)
+    # products = OnTheDish.objects.raw('(SELECT * FROM dash_tracker_ingradient LEFT OUTER JOIN '+
+    #                                  '(SELECT name AS ingradient_name, id '+
+    #                                  'FROM dash_tracker_ingradientname '+
+    #                                  'WHERE dash_tracker_ingradientname.lang_id = ('+
+    #                                  'SELECT lang_id FROM dash_tracker_profile '+
+    #                                  'WHERE user_id = %s)) '+
+    #                                  'AS dash_tracker_ingradientname '+
+    #                                  'ON dash_tracker_ingradientname.id = dash_tracker_ingradient.id) '+
+    #                                  'LEFT OUTER JOIN ('+
+    #                                  'SELECT name '+
+    #                                  'AS mesurement_name, id '+
+    #                                  'FROM dash_tracker_mesurementname '+
+    #                                  'WHERE dash_tracker_mesurementname.lang_id = ('+
+    #                                  'SELECT lang_id '+
+    #                                  'FROM dash_tracker_profile '+
+    #                                  'WHERE user_id = %s)) '+
+    #                                  'AS dash_tracker_mesurementname '+
+    #                                  'ON dash_tracker_mesurementname.id = dash_tracker_ingradient.mesurement_id',
+    #                                  [request.user.id, request.user.id])
 
-    lname = lang.short_name
-    print(lname)
-    return render(request, 'dash_tracker/dish.html', {'products': products, 'lang' : lang})
+
+    return render(request, 'dash_tracker/dish.html', {'products': products})
 
 # @login_required
 # def camera(request):

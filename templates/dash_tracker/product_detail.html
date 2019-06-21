@@ -1,0 +1,13 @@
+{% extends 'dash_tracker/base.html' %}
+
+{% block content %}
+    <a class="btn btn-default" href="{% url 'product_edit' pk=product_item.pk %}"><span class="glyphicon glyphicon-pencil">edit</span></a>
+    <div class="post">
+        <td>{{ product_item.date }}</td>
+        <td>{{ product_item.meal_name|linebreaksbr }}</td>
+        <td>{{ product_item.ingradient_name|linebreaksbr }}</td>
+        <td>{{ product_item.quantity|linebreaksbr }}</td>
+        <td>{{ product_item.mesurement_name|linebreaksbr }}</td>
+    </div>
+{% endblock %}
+

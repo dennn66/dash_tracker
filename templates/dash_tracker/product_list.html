@@ -1,0 +1,19 @@
+{% extends 'dash_tracker/base.html' %}
+
+{% block content %}
+
+<table border="1">
+<tr><th>Time</th><th>X</th><th>Y</th><th>Event</th></tr>
+{% for product_item in product_items %}
+    <tr>
+        <td>{{ product_item.date }}</td>
+        <td>{{ product_item.meal_name|linebreaksbr }}</td>
+        <td>{{ product_item.ingradient_name|linebreaksbr }}</td>
+        <td>{{ product_item.quantity|linebreaksbr }}</td>
+        <td>{{ product_item.mesurement_name|linebreaksbr }}</td>
+        <td><a href="{% url 'product_detail' pk=product_item.pk %}">{{ product_item.ingradient_name }}</a>}</td>
+    </tr>
+{% endfor %}
+</table>
+
+{% endblock %}

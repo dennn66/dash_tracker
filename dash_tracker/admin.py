@@ -9,7 +9,7 @@ from django.conf import settings
 
 # Register your models here.
 from .models import Language, ProductTypeName, ProductGroupName, Mesurement, MesurementName, \
-    Ingradient,IngradientName, Meal, MealName, OnTheDish, Profile, ProductType, ProductGroup
+    Ingradient,IngradientName, Meal, MealName, ProductItem, Profile, ProductType, ProductGroup
 
 
 admin.site.register(Language)
@@ -23,7 +23,7 @@ admin.site.register(Ingradient)
 admin.site.register(IngradientName)
 admin.site.register(Meal)
 admin.site.register(MealName)
-admin.site.register(OnTheDish)
+admin.site.register(ProductItem)
 admin.site.register(Profile)
 
 

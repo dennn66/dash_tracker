@@ -11,10 +11,12 @@ from . import views
 
 '''
 urlpatterns = [
-    #path(r'what_ont_the_dish', views.dish, name='dish'),
-    #path(r'camera', views.camera, name='camera'),
-    path(r'', views.dish, name='dish'),
-    #path(r'mouseevent', views.mouse_event, name='mouse_event'),
+
+    path(r'', views.product_list, name='product_list'),
+    path('product/<int:pk>/', views.product_detail, name='product_detail'),
+    path('product/new/', views.product_new, name='product_new'),
+    path('product/<int:pk>/edit/', views.product_edit, name='product_edit'),
+
 ]
 
 #urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

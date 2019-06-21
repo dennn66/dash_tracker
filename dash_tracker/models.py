@@ -124,7 +124,7 @@ class MealName(models.Model):
     def __str__(self):
         return self.name
 
-class OnTheDish(models.Model):
+class ProductItem(models.Model):
     date = models.DateField(default=date.today)
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
     ingradient = models.ForeignKey(Ingradient, on_delete=models.CASCADE)
